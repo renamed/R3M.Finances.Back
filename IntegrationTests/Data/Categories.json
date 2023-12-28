@@ -1,0 +1,65 @@
+[
+  {
+    "Name": "Parent Category 1",
+    "TransactionType": 1,
+    "Id": "592d7199-92ad-4514-8fab-189a9b102df1"
+  },
+  {
+    "Name": "Child Category 1.1",
+    "TransactionType": 1,
+    "ParentId": "592d7199-92ad-4514-8fab-189a9b102df1",
+    "Id": "265d4d24-e4a3-4e2b-b304-2a957bf191e0"
+  },
+  {
+    "Name": "Child Category 1.2",
+    "TransactionType": 1,
+    "ParentId": "592d7199-92ad-4514-8fab-189a9b102df1",
+    "Id": "9b2230a8-471d-4991-9d81-c9b7edcd8fdf"
+  },
+  {
+    "Name": "Child Category 1.3",
+    "TransactionType": 1,
+    "ParentId": "592d7199-92ad-4514-8fab-189a9b102df1",
+    "Id": "38b3c63a-8d73-4269-88d7-e58e1407e576"
+  },
+  {
+    "Name": "Child Category 1.1.1",
+    "TransactionType": 1,
+    "ParentId": "265d4d24-e4a3-4e2b-b304-2a957bf191e0",
+    "Id": "efe5837e-4d4d-423b-8e18-9f0c78b5e850"
+  },
+  {
+    "Name": "Parent Category 2",
+    "TransactionType": 2,
+    "Id": "631e2ccb-325a-4ab2-8410-e342b28aa6e2"
+  },
+  {
+    "Name": "Child Category 2.1",
+    "TransactionType": 2,
+    "ParentId": "631e2ccb-325a-4ab2-8410-e342b28aa6e2",
+    "Id": "e858b4b9-f43e-4fbe-b12f-18170e39d140"
+  },
+  {
+    "Name": "Child Category 1.1.1.1",
+    "TransactionType": 1,
+    "ParentId": "efe5837e-4d4d-423b-8e18-9f0c78b5e850",
+    "Id": "a4293376-2f66-42f3-8110-d0fc39a87ac3"
+  },
+  {
+    "Name": "Child Category 1.2.1",
+    "TransactionType": 1,
+    "ParentId": "9b2230a8-471d-4991-9d81-c9b7edcd8fdf",
+    "Id": "384278ec-7ee5-4a8f-8a6d-dbb42b9c4640"
+  },
+  {
+    "Name": "Child Category 1.2.2",
+    "TransactionType": 1,
+    "ParentId": "9b2230a8-471d-4991-9d81-c9b7edcd8fdf",
+    "Id": "400fe11a-73a1-41aa-b1ed-e479b26d3447"
+  },
+  {
+    "Name": "Parent Category 3",
+    "TransactionType": 2,
+    "Id": "79cd7f4e-5d07-419a-ab8f-271faf6a36a1"
+  }
+]
