@@ -22,7 +22,9 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Where am I
+      run: ls
     - name: Unit Test
-      run: dotnet test UnitTests.csproj  --no-build --verbosity normal
+      run: dotnet test UnitTests/UnitTests.csproj  --no-build --verbosity normal
     - name: Integration Test
-      run: dotnet test IntegrationTests.csproj  --no-build --verbosity normal
+      run: dotnet test IntegrationTests/IntegrationTests.csproj  --no-build --verbosity normal
