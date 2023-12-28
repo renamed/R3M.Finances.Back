@@ -11,7 +11,10 @@ public class PeriodMapper : Profile
         CreateMap<AddPeriodRequest, Period>();
         CreateMap<Period, AddPeriodResponse>();
         CreateMap<Period, DefaultPeriodResponse>();
-        CreateMap<Period, ListPeriodsResponse>();
+
+        CreateMap<Period, ListPeriodsResponse>()
+            .ForMember(m => m.IsCurrent, (x) =>
+                x.MapFrom((src, dest) => Today() >= src.Start && Today() <= src.End));
 
         CreateMap<EditPeriodRequest, Period>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
@@ -38,4 +41,7 @@ public class PeriodMapper : Profile
             }));
 
     }
+
+    
+    private static DateOnly Today() => DateOnly.FromDateTime(DateTime.UtcNow);
 }
