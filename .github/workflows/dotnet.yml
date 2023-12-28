@@ -6,7 +6,6 @@ name: .NET
 on:
   push:
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -24,6 +23,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Unit Test
-      run: dotnet test UnitTests\UnitTests.csproj  --no-build --verbosity normal
+      run: dotnet test UnitTests.csproj  --no-build --verbosity normal
     - name: Integration Test
-      run: dotnet test IntegrationTests\IntegrationTests.csproj  --no-build --verbosity normal
+      run: dotnet test IntegrationTests.csproj  --no-build --verbosity normal
