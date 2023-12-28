@@ -12,4 +12,5 @@ public class ListCategoriesResponse
     public TransactionType TransactionType { get; set; }
 
     public List<ListCategoriesResponse> Children { get; set; } = new();
+    public bool IsEssential { get; set; }
 }

@@ -10,4 +10,5 @@ public class AddCategoryResponse
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public TransactionType TransactionType { get; set; }
     public AddCategoryResponse Parent { get; set; }
+    public bool IsEssential { get; set; }
 }

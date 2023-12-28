@@ -10,7 +10,7 @@ public class AddCategoryRequest
     public string Name { get; set; }
     [Required]
     [EnumDataType(typeof(TransactionType))]
-    public TransactionType TransactionType { get; set; }
-    
+    public TransactionType TransactionType { get; set; }    
     public Guid? ParentId { get; set; }
+    public bool IsEssential { get; set; }
 }

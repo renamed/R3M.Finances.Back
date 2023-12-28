@@ -10,4 +10,5 @@ public class EditCategoryRequest
  
     [EnumDataType(typeof(TransactionType))]
     public TransactionType? TransactionType { get; set; }
+    public bool IsEssential { get; set; }
 }

@@ -58,6 +58,16 @@ public class CategoriesService : ICategoriesService
             {
                 throw new ValidationException("Category must have the same transaction type of its parent");
             }
+
+            if (category.IsEssential && !parent.IsEssential)
+            {
+                throw new ValidationException("Category must only be essential if its parent is");
+            }
+
+            if (category.IsEssential && category.TransactionType != TransactionType.Debit)
+            {
+                throw new ValidationException("Only Debit transaction type categories can be flagged as Essential");
+            }
         }
 
         var byName = await GetAsync(new Category { Name = category.Name, TransactionType = category.TransactionType });
@@ -89,10 +99,22 @@ public class CategoriesService : ICategoriesService
             throw new ValidationException("Category already exists");
         }
 
-        if (existingCategory.Parent != null 
-            && category.TransactionType != existingCategory.Parent.TransactionType)
+        if (existingCategory.Parent != null)
         {
-            throw new ValidationException("Category must have the same transaction type of its parent");
+            if (category.TransactionType != existingCategory.Parent.TransactionType)
+            {
+                throw new ValidationException("Category must have the same transaction type of its parent");
+            }
+
+            if (category.IsEssential && !existingCategory.Parent.IsEssential)
+            {
+                throw new ValidationException("Category must only be essential if its parent is");
+            }
+
+            if (category.IsEssential && category.TransactionType != TransactionType.Debit)
+            {
+                throw new ValidationException("Only Debit transaction type categories can be flagged as Essential");
+            }
         }
 
         _mapper.Map(category, existingCategory);
