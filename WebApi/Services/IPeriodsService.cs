@@ -10,5 +10,6 @@ public interface IPeriodsService
     Task<List<Period>> GetAsync(Period period);
     Task<Period> GetOneAsync(Period period);
     Task<Period> GetOneAsync(Guid id);
+    Task<Period> GetOneAsync(string name);
     Task<List<Period>> ListAsync();
 }

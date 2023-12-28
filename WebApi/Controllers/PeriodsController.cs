@@ -36,6 +36,15 @@ public class PeriodsController : ControllerBase
         return Ok(_mapper.Map<ListPeriodsResponse>(period));
     }
 
+    [HttpGet("name/{name}")]
+    public async Task<IActionResult> GetAsync(string name)
+    {
+        var period = await _periodsService.GetOneAsync(name)
+            ?? throw new RecordNotFoundException("Period not found");
+
+        return Ok(_mapper.Map<ListPeriodsResponse>(period));
+    }
+
     [HttpGet("date/{start}")]
     public async Task<IActionResult> GetAsync(DateOnly start, [FromQuery]DateOnly? end)
     {

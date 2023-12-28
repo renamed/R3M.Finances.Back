@@ -29,6 +29,11 @@ public class PeriodsService : IPeriodsService
         return GetOneAsync(new Period { Id = id });
     }
 
+    public Task<Period> GetOneAsync(string name)
+    {
+        return GetOneAsync(new Period { Name = name });
+    }
+
     public Task<Period> GetOneAsync(Period period)
     {
         Expression<Func<Period, bool>> predicate = BuildPredicate(period);
@@ -120,5 +125,5 @@ public class PeriodsService : IPeriodsService
         return _financesContext.Periods.AnyAsync(x => (x.Start >= start && x.End <= end)
                                                  || (x.Start <= start && x.End >= start)
                                                  || (x.Start <= end && x.End >= end));
-    }
+    }    
 }

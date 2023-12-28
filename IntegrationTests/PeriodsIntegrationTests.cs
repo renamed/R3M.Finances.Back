@@ -13,6 +13,7 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
     private const string AddPeriodsUrl = "api/periods";
     private const string EditPeriodsUrl = "api/periods/";
     private const string GetPeriodsUrl = "api/periods/";
+    private const string GetPeriodsNyNameUrl = "api/periods/name/";
     private const string ListPeriodsUrl = "api/periods";
     private const string GetPeriodsByDateUrl = "api/periods/date/";
     private const string DeletePeriodsUrl = "api/periods/";
@@ -130,27 +131,6 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
     }
 
     [Fact]
-    public async Task GetAsync_ShouldReturn404_WhenIdNotFound()
-    {
-        var url = GetPeriodsByDateUrl + "2024-01-15?end=2024-01-16";
-
-        var response = await GetAsync<IEnumerable<ListPeriodsResponse>>(url);
-
-        var body = response.Body;
-        body.Should().BeEmpty();
-    }
-
-    [Fact]
-    public async Task GetAsync_ShouldReturn200_WhenIdFound()
-    {
-        var url = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
-
-        var response = await GetAsync<ListPeriodsResponse>(url);
-
-        response.Response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
     public async Task GetAsync_ShouldReturnObject_WhenIdFound()
     {
         var url = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
@@ -166,14 +146,72 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
         }, response.Body);
     }
 
-    private static void AssertPeriods(ListPeriodsResponse target, ListPeriodsResponse response)
+    [Fact]
+    public async Task GetAsync_ShouldReturn404_WhenIdNotFound()
     {
-        target.Id.Should().Be(response.Id);
-        target.Start.Should().Be(response.Start);
-        target.End.Should().Be(response.End);
-        target.Name.Should().Be(response.Name);
+        var url = GetPeriodsByDateUrl + "2024-01-15?end=2024-01-16";
+
+        var response = await GetAsync<IEnumerable<ListPeriodsResponse>>(url);
+
+        var body = response.Body;
+        body.Should().BeEmpty();
     }
 
+    [Fact]
+    public async Task GetAsync_ShouldReturn200_WhenNameFound()
+    {
+        var url = GetPeriodsNyNameUrl + "202312";
+
+        var response = await GetAsync<ListPeriodsResponse>(url);
+
+        response.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturnObject_WhenNameFound()
+    {
+        var url = GetPeriodsNyNameUrl + "202312";
+
+        var response = await GetAsync<ListPeriodsResponse>(url);
+
+        AssertPeriods(new ListPeriodsResponse
+        {
+            Id = Guid.Parse("2c47651d-b765-4e1a-8409-9a78bfc3e22c"),
+            Start = DateOnly.Parse("2023-12-01"),
+            End = DateOnly.Parse("2024-01-14"),
+            Name = "202312",
+        }, response.Body);
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturn404_WhenNameDoesNotExist()
+    {
+        var url = GetPeriodsNyNameUrl + "abcde";
+
+        var response = await GetAsync<ErrorDto>(url);
+
+        response.Response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturnErrorMessage_WhenNameDoesNotExist()
+    {
+        var url = GetPeriodsNyNameUrl + "abcde";
+
+        var response = await GetAsync<ErrorDto>(url);
+
+        response.Body.Message.Should().Be("Period not found");
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturn200_WhenIdFound()
+    {
+        var url = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+
+        var response = await GetAsync<ListPeriodsResponse>(url);
+
+        response.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
     #endregion
 
     #region POST        
@@ -675,6 +713,14 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
     }
 
     private static void AssertPeriods(AddPeriodResponse target, ListPeriodsResponse response)
+    {
+        target.Id.Should().Be(response.Id);
+        target.Start.Should().Be(response.Start);
+        target.End.Should().Be(response.End);
+        target.Name.Should().Be(response.Name);
+    }
+
+    private static void AssertPeriods(ListPeriodsResponse target, ListPeriodsResponse response)
     {
         target.Id.Should().Be(response.Id);
         target.Start.Should().Be(response.Start);
