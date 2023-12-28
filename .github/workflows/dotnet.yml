@@ -3,15 +3,11 @@
 
 name: .NET
 
-on:
-  push:
-  pull_request:
-
+on: [push]
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -22,13 +18,12 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-      
-  tests:
+    - name: Unit Test
+      run: dotnet test UnitTests/UnitTests.csproj  --no-build --verbosity normal
 
+  tests:
     runs-on: ubuntu-latest
-    
+    needs: build
     steps:
-      - name: Unit Test
-        run: dotnet test UnitTests/UnitTests.csproj  --no-build --verbosity normal
       - name: Integration Test
         run: dotnet test IntegrationTests/IntegrationTests.csproj  --no-build --verbosity normal
