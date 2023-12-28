@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using IntegrationTests.Builders;
 using IntegrationTests.Config;
 using System.Net;
 using WebApi;
 using WebApi.Dtos;
+using WebApi.Dtos.Builders;
 using Xunit;
 
 namespace IntegrationTests;

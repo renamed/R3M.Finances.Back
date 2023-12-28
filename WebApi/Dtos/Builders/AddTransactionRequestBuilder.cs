@@ -1,6 +1,4 @@
-﻿using WebApi.Dtos;
-
-namespace IntegrationTests.Builders;
+﻿namespace WebApi.Dtos.Builders;
 
 public class AddTransactionRequestBuilder
 {

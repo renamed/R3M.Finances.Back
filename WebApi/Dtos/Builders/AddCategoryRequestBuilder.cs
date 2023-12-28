@@ -1,7 +1,6 @@
-﻿using WebApi.Dtos;
-using WebApi.Model;
+﻿using WebApi.Model;
 
-namespace IntegrationTests.Builders;
+namespace WebApi.Dtos.Builders;
 
 public class AddCategoryRequestBuilder
 {
