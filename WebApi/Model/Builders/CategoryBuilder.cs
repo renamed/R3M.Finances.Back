@@ -21,6 +21,11 @@ public class CategoryBuilder
         _category.TransactionType = transactionType;
         return this;
     }
+    public CategoryBuilder WithIsEssential(bool isEssential) 
+    {
+        _category.IsEssential = isEssential;
+        return this;
+    }
     public CategoryBuilder WithParentId(Guid? parentId)
     {
         _category.ParentId = parentId;
