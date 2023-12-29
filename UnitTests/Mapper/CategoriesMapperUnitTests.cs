@@ -12,7 +12,7 @@ public class CategoriesMapperUnitTests
 
     public CategoriesMapperUnitTests()
     {
-        _mapper = MapperFactory.GetCategoriesMapper();
+        _mapper = MapperFactory.GetMapperConfig();
     }
 
     [Fact]

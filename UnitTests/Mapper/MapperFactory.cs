@@ -5,27 +5,16 @@ namespace UnitTests.Mapper;
 
 public static class MapperFactory
 {
-    public static IMapper GetCategoriesMapper()
+    public static IMapper GetMapperConfig()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<CategoriesMapper>());
-        return config.CreateMapper();
-    }
+        var config = new MapperConfiguration(cfg => {
+            cfg.AddProfile<FinancialGoalsMapper>();
+            cfg.AddProfile<TransactionsMapper>();
+            cfg.AddProfile<PeriodMapper>();
+            cfg.AddProfile<EnumMapper>();
+            cfg.AddProfile<CategoriesMapper>();
+        });
 
-    public static IMapper GetEnumMapper()
-    {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<EnumMapper>());
         return config.CreateMapper();
-    }
-
-    public static IMapper GetPeriodsMapper()
-    {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<PeriodMapper>());
-        return config.CreateMapper();
-    }
-
-    public static IMapper GetTransactionsMapper()
-    {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<TransactionsMapper>());
-        return config.CreateMapper();
-    }
+    }    
 }
