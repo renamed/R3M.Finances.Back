@@ -95,7 +95,7 @@ namespace UnitTests.Mapper
             var period = PeriodBuilder
                             .New
                             .WithStart(new DateOnly(2023, 11, 1))
-                            .WithEnd(new DateOnly(2023, 11, 31))
+                            .WithEnd(new DateOnly(2023, 11, 30))
                             .Build();
 
             var defaultPeriodResponse = _mapper.Map<ListPeriodsResponse>(period);
