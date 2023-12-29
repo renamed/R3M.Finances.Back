@@ -57,4 +57,19 @@ public class CategoriesMapperUnitTests
 
         mapped.Name.Should().Be(category.Name);
     }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Category_To_ListCategoriesResponse_ShouldMapIsEssential(bool isEssential)
+    {
+        var category = CategoryBuilder
+            .New
+            .WithIsEssential(isEssential)
+            .Build();
+
+        var mapped = _mapper.Map<ListCategoriesResponse>(category);
+
+        mapped.IsEssential.Should().Be(isEssential);
+    }
 }
