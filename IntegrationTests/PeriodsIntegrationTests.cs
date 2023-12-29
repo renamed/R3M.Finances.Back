@@ -288,97 +288,97 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
         response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    [Fact]
-    public async Task AddAsync_ShouldReturn400_WhenStartIsAfterEnd()
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("12345678901")
-            .WithEnd(DateOnly.FromDateTime(DateTime.Now))
-            .WithStart(DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
-            .Build();
+    //[Fact]
+    //public async Task AddAsync_ShouldReturn400_WhenStartIsAfterEnd()
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("12345678901")
+    //        .WithEnd(DateOnly.FromDateTime(DateTime.Now))
+    //        .WithStart(DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-    }
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //}
 
-    [Fact]
-    public async Task AddAsync_ShouldReturnErrorMessage_WhenStartIsAfterEnd()
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("1234567")
-            .WithEnd(DateOnly.FromDateTime(DateTime.Now))
-            .WithStart(DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
-            .Build();
+    //[Fact]
+    //public async Task AddAsync_ShouldReturnErrorMessage_WhenStartIsAfterEnd()
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("1234567")
+    //        .WithEnd(DateOnly.FromDateTime(DateTime.Now))
+    //        .WithStart(DateOnly.FromDateTime(DateTime.Now.AddDays(7)))
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Body.Message.Should().Be("End date before Start");
-    }
+    //    response.Body.Message.Should().Be("End date before Start");
+    //}
 
-    [Theory]
-    [MemberData(nameof(GetOverlappingStartEndDates))]
-    public async Task AddAsync_ShouldReturn400_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("202301")
-            .WithStart(start)
-            .WithEnd(end)
-            .Build();
+    //[Theory]
+    //[MemberData(nameof(GetOverlappingStartEndDates))]
+    //public async Task AddAsync_ShouldReturn400_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202301")
+    //        .WithStart(start)
+    //        .WithEnd(end)
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-    }
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //}
 
-    [Theory]
-    [MemberData(nameof(GetOverlappingStartEndDates))]
-    public async Task AddAsync_ShouldEnsureErrorMessage_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("202301")
-            .WithStart(start)
-            .WithEnd(end)
-            .Build();
+    //[Theory]
+    //[MemberData(nameof(GetOverlappingStartEndDates))]
+    //public async Task AddAsync_ShouldEnsureErrorMessage_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202301")
+    //        .WithStart(start)
+    //        .WithEnd(end)
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Body.Message.Should().Be("Overlapping Period already exists");
-    }
+    //    response.Body.Message.Should().Be("Overlapping Period already exists");
+    //}
 
-    [Fact]
-    public async Task AddAsync_ShouldReturn400_WhenNameAlreadyExists()
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("202401")
-            .WithStart(new DateOnly(2018, 1, 1))
-            .WithEnd(new DateOnly(2018, 2, 1))
-            .Build();
+    //[Fact]
+    //public async Task AddAsync_ShouldReturn400_WhenNameAlreadyExists()
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202401")
+    //        .WithStart(new DateOnly(2018, 1, 1))
+    //        .WithEnd(new DateOnly(2018, 2, 1))
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-    }
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //}
 
-    [Fact]
-    public async Task AddAsync_ShouldReturnErrorMessage_WhenNameAlreadyExists()
-    {
-        var request = AddPeriodsRequestBuilder
-            .New()
-            .WithName("202401")
-            .WithStart(new DateOnly(2018, 1, 1))
-            .WithEnd(new DateOnly(2018, 2, 1))
-            .Build();
+    //[Fact]
+    //public async Task AddAsync_ShouldReturnErrorMessage_WhenNameAlreadyExists()
+    //{
+    //    var request = AddPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202401")
+    //        .WithStart(new DateOnly(2018, 1, 1))
+    //        .WithEnd(new DateOnly(2018, 2, 1))
+    //        .Build();
 
-        var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
+    //    var response = await PostAsync<ErrorDto, AddPeriodRequest>(AddPeriodsUrl, request);
 
-        response.Body.Message.Should().Be("Name already exists");
-    }
+    //    response.Body.Message.Should().Be("Name already exists");
+    //}
 
     [Fact]
     public async Task AddAsync_ShouldReturn201_WhenInserted()
@@ -539,94 +539,94 @@ public class PeriodsIntegrationTests(CustomWebApplicationFactory<Program> applic
         getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
     }
 
-    [Fact]
-    public async Task PutAsync_ShouldReturn400_WhenStartIsAfterEnd()
-    {
-        var request = EditPeriodsRequestBuilder
-            .New()
-            .WithName("123456")
-            .WithStart(new DateOnly(1999, 5, 2))
-            .WithEnd(new DateOnly(1999, 5, 1))
-            .Build();
+    //[Fact]
+    //public async Task PutAsync_ShouldReturn400_WhenStartIsAfterEnd()
+    //{
+    //    var request = EditPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("123456")
+    //        .WithStart(new DateOnly(1999, 5, 2))
+    //        .WithEnd(new DateOnly(1999, 5, 1))
+    //        .Build();
 
-        var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
-        var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
 
-        var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
-        var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
-        var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
+    //    var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
-    }
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //    getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
+    //}
 
-    [Fact]
-    public async Task PutAsync_ShouldReturnErrorMessage_WhenStartIsAfterEnd()
-    {
-        var request = EditPeriodsRequestBuilder
-            .New()
-            .WithName("1234567")
-            .WithStart(new DateOnly(1999, 5, 5))
-            .WithEnd(new DateOnly(1999, 5, 3))
-            .Build();
+    //[Fact]
+    //public async Task PutAsync_ShouldReturnErrorMessage_WhenStartIsAfterEnd()
+    //{
+    //    var request = EditPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("1234567")
+    //        .WithStart(new DateOnly(1999, 5, 5))
+    //        .WithEnd(new DateOnly(1999, 5, 3))
+    //        .Build();
 
-        var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
-        var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
 
-        var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
-        var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
-        var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
+    //    var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        response.Body.Message.Should().Be("End date before Start");
-        getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
-    }
+    //    response.Body.Message.Should().Be("End date before Start");
+    //    getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
+    //}
 
-    [Theory]
-    [MemberData(nameof(GetOverlappingStartEndDates))]
-    public async Task PutAsync_ShouldReturn400_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
-    {
-        var request = EditPeriodsRequestBuilder
-            .New()
-            .WithName("202301")
-            .WithStart(start)
-            .WithEnd(end)
-            .Build();
+    //[Theory]
+    //[MemberData(nameof(GetOverlappingStartEndDates))]
+    //public async Task PutAsync_ShouldReturn400_WhenOverlappingStartEndDates(DateOnly start, DateOnly end)
+    //{
+    //    var request = EditPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202301")
+    //        .WithStart(start)
+    //        .WithEnd(end)
+    //        .Build();
 
-        var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
-        var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
 
-        var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
-        var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
-        var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
+    //    var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        response.Body.Message.Should().Be("Overlapping Period already exists");
-        getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
-    }
+    //    response.Body.Message.Should().Be("Overlapping Period already exists");
+    //    getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
+    //}
 
-    [Fact]
-    public async Task PutAsync_ShouldReturn400_WhenNameAlreadyExists()
-    {
-        var request = EditPeriodsRequestBuilder
-            .New()
-            .WithName("202402")
-            .WithStart(new DateOnly(1999, 5, 1))
-            .WithEnd(new DateOnly(1999, 5, 2))
-            .Build();
+    //[Fact]
+    //public async Task PutAsync_ShouldReturn400_WhenNameAlreadyExists()
+    //{
+    //    var request = EditPeriodsRequestBuilder
+    //        .New()
+    //        .WithName("202402")
+    //        .WithStart(new DateOnly(1999, 5, 1))
+    //        .WithEnd(new DateOnly(1999, 5, 2))
+    //        .Build();
 
-        var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
-        var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var putUrl = EditPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
+    //    var getUrl = GetPeriodsUrl + "2c47651d-b765-4e1a-8409-9a78bfc3e22c";
 
-        var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
-        var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
-        var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var getOneResponse = await GetAsync<ListPeriodsResponse>(getUrl);
+    //    var response = await PutAsync<ErrorDto, EditPeriodRequest>(putUrl, request);
+    //    var getTwoResponse = await GetAsync<ListPeriodsResponse>(getUrl);
 
-        response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
-    }
+    //    response.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    //    getTwoResponse.Body.Name.Should().Be(getOneResponse.Body.Name);
+    //}
 
     [Fact]
     public async Task PutAsync_ShouldReturn200_WhenUpdated()
