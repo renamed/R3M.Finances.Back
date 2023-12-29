@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Bogus;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -98,6 +99,7 @@ public class IntegrationTestsBase : IClassFixture<CustomWebApplicationFactory<Pr
         _context.Categories.AddRange(ReadDataFileAsync<Category>("Categories.json"));
         _context.Periods.AddRange(ReadDataFileAsync<Period>("Periods.json"));
         _context.Transactions.AddRange(ReadDataFileAsync<Transaction>("Transactions.json"));
+        _context.FinancialGoals.AddRange(ReadDataFileAsync<FinancialGoal>("FinancialGoals.json"));
 
         _context.SaveChanges();
     }
@@ -144,6 +146,35 @@ public class IntegrationTestsBase : IClassFixture<CustomWebApplicationFactory<Pr
     //        .RuleFor(x => x.Description, lorem.Sentence(5, 2))
     //        .RuleFor(x => x.InvoiceDate, f => f.Date.BetweenDateOnly(new DateOnly(2024, 2, 15), new DateOnly(2024, 3, 14)))
     //        .GenerateBetween(10, 100);
+    //}
+
+    //private static void GenerateFinancialGoals()
+    //{
+    //    var creditIds = new[] { Guid.Parse("592d7199-92ad-4514-8fab-189a9b102df1"), Guid.Parse("265d4d24-e4a3-4e2b-b304-2a957bf191e0"), Guid.Parse("9b2230a8-471d-4991-9d81-c9b7edcd8fdf"), Guid.Parse("38b3c63a-8d73-4269-88d7-e58e1407e576"), Guid.Parse("efe5837e-4d4d-423b-8e18-9f0c78b5e850"), Guid.Parse("a4293376-2f66-42f3-8110-d0fc39a87ac3"), Guid.Parse("384278ec-7ee5-4a8f-8a6d-dbb42b9c4640"), Guid.Parse("400fe11a-73a1-41aa-b1ed-e479b26d3447") };
+    //    var debitIds = new[] { Guid.Parse("631e2ccb-325a-4ab2-8410-e342b28aa6e2"), Guid.Parse("e858b4b9-f43e-4fbe-b12f-18170e39d140"), Guid.Parse("79cd7f4e-5d07-419a-ab8f-271faf6a36a1") };
+
+    //    var fg = new List<FinancialGoal>();
+
+    //    foreach(var creditId in creditIds)
+    //    {
+    //        fg.Add(new Faker<FinancialGoal>()
+    //            .RuleFor(x => x.Goal, f => f.Random.Decimal(1200, 6200))
+    //            .RuleFor(x => x.CategoryId, (f) => creditId)
+    //            .RuleFor(x => x.PeriodId, f => Guid.Parse("f0028ad8-e768-44f1-8798-f97e7b6bd7bf"))
+    //            .Generate());
+    //    }
+
+    //    foreach (var debitId in debitIds)
+    //    {
+    //        fg.Add(new Faker<FinancialGoal>()
+    //            .RuleFor(x => x.Goal, f => f.Random.Decimal(-1800, -5))
+    //            .RuleFor(x => x.CategoryId, (f) => debitId)
+    //            .RuleFor(x => x.PeriodId, f => Guid.Parse("f0028ad8-e768-44f1-8798-f97e7b6bd7bf"))
+    //            .Generate());
+    //    }
+
+
+
     //}
 
 }

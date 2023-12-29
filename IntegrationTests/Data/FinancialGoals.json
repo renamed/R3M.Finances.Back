@@ -1,0 +1,112 @@
+[
+  {
+    "CategoryId": "592d7199-92ad-4514-8fab-189a9b102df1",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 2230.283511076760000,
+    "Id": "bdf5bd45-0053-4a34-923c-585f5acfe67a",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "265d4d24-e4a3-4e2b-b304-2a957bf191e0",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 5009.185498310615000,
+    "Id": "86a85041-fe1c-4dd4-b031-fd60096f0113",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "9b2230a8-471d-4991-9d81-c9b7edcd8fdf",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 4811.054443154110000,
+    "Id": "5994529c-c085-4495-aecf-70729f7a5b4f",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "38b3c63a-8d73-4269-88d7-e58e1407e576",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 6004.742025423610000,
+    "Id": "303a5755-0d1b-44b2-8eaa-27a39f2a6f02",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "efe5837e-4d4d-423b-8e18-9f0c78b5e850",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 2658.71223283315000,
+    "Id": "a192c878-8baf-4262-ae71-096cf5914e21",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "a4293376-2f66-42f3-8110-d0fc39a87ac3",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 4147.677970614220000,
+    "Id": "0745c220-3718-4666-a506-63b4f914bd69",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "384278ec-7ee5-4a8f-8a6d-dbb42b9c4640",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 3065.894985759845000,
+    "Id": "c1b27c6f-fbcc-4b9d-94b3-c8422e4fe576",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "400fe11a-73a1-41aa-b1ed-e479b26d3447",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": 5080.019996473070000,
+    "Id": "e3a2d327-4f3d-43a3-b259-d8efa0b8d0b3",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "631e2ccb-325a-4ab2-8410-e342b28aa6e2",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": -1480.832266300154685,
+    "Id": "6d0464bf-2344-4b4e-b0a2-d2a0b9094fc8",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "e858b4b9-f43e-4fbe-b12f-18170e39d140",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": -1677.1157968958944730,
+    "Id": "54651bbb-f2ad-4a57-a610-691ff2fe933c",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  },
+  {
+    "CategoryId": "79cd7f4e-5d07-419a-ab8f-271faf6a36a1",
+    "Category": null,
+    "PeriodId": "f0028ad8-e768-44f1-8798-f97e7b6bd7bf",
+    "Period": null,
+    "Goal": -101.402928415730695,
+    "Id": "6c1b1309-5ac7-47dd-9594-8ceaddbbc2c0",
+    "Inserted": "0001-01-01T00:00:00",
+    "Updated": null
+  }
+]

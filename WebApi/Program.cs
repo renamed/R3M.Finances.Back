@@ -25,6 +25,7 @@ public class Program
         builder.Services.AddScoped<ICategoriesService, CategoriesService>();
         builder.Services.AddScoped<IPeriodsService, PeriodsService>();
         builder.Services.AddScoped<ITransactionService, TransactionService>();
+        builder.Services.AddScoped<IFinancialGoalsService, FinancialGoalsService>();
 
         builder.Services.AddCors(options =>
         {

@@ -2,28 +2,27 @@
 
 #nullable disable
 
-namespace WebApi.Migrations
+namespace WebApi.Migrations;
+
+/// <inheritdoc />
+public partial class AddEssentialFieldToCategory : Migration
 {
     /// <inheritdoc />
-    public partial class AddEssentialFieldToCategory : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<bool>(
-                name: "is_essential",
-                table: "categories",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
-        }
+        migrationBuilder.AddColumn<bool>(
+            name: "is_essential",
+            table: "categories",
+            type: "boolean",
+            nullable: false,
+            defaultValue: false);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "is_essential",
-                table: "categories");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "is_essential",
+            table: "categories");
     }
 }

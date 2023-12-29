@@ -37,6 +37,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Data\FinancialGoals.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Data\Periods.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>

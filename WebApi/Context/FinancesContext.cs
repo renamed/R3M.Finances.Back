@@ -10,14 +10,34 @@ public class FinancesContext(DbContextOptions<FinancesContext> dbContextOptions)
     public DbSet<Category>  Categories { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Period> Periods { get; set; }
+    public DbSet<FinancialGoal> FinancialGoals { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ConfigCategories(modelBuilder);
         ConfigTransactions(modelBuilder);
         ConfigPeriods(modelBuilder);
+        ConfigFinancialGoals(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    private static void ConfigFinancialGoals(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<FinancialGoal>(e =>
+        {
+            ConfigId(e);
+
+            e.Property(p => p.CategoryId)
+                .IsRequired();
+            e.Property(p => p.PeriodId)
+                .IsRequired();
+
+            e.HasIndex(i => new { i.CategoryId, i.PeriodId }).IsUnique();
+
+            e.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId);
+            e.HasOne(o => o.Period).WithMany().HasForeignKey(o => o.PeriodId);
+        });
     }
 
     private static void ConfigPeriods(ModelBuilder modelBuilder)
