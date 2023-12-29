@@ -2,7 +2,7 @@
 {
     public class PeriodBuilder
     {
-        private readonly Period _period;
+        private readonly Period _period = new();
 
         public static PeriodBuilder New => new();
 
