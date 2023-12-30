@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Net;
 using WebApi.Dtos;
 using WebApi.Model;
@@ -81,35 +82,23 @@ public class CategoriesController : ControllerBase
 
     private List<ListCategoriesResponse> BuildListCategoriesResponse(List<Category> categories)
     {
-        // Inicialize o dicionário para armazenar as categorias
-        Dictionary<Guid, ListCategoriesResponse> response = new Dictionary<Guid, ListCategoriesResponse>();
+        var categoryMap = categories.ToDictionary(c => c.Id, _mapper.Map<ListCategoriesResponse>);
 
-        // Mapeie as categorias para o dicionário e crie os nós principais
-        foreach (var category in categories)
+        foreach(var category in categories) 
         {
-            // Verifique se a categoria já está no dicionário
-            if (!response.ContainsKey(category.Id))
+            if (category.ParentId.HasValue)
             {
-                response[category.Id] = _mapper.Map<ListCategoriesResponse>(category);
-            }
-
-            // Verifique se a categoria tem um pai e adicione-a como filho, se aplicável
-            if (category.ParentId.HasValue && response.ContainsKey(category.ParentId.Value))
-            {
-                response[category.ParentId.Value].Children.Add(response[category.Id]);
+                categoryMap[category.ParentId.Value].Children.Add(categoryMap[category.Id]);
             }
         }
 
-        // Encontre as raízes (categorias sem pais) e retorne como resultado
-        List<ListCategoriesResponse> roots = new();
-        foreach (var category in response.Values)
+        var response = new List<ListCategoriesResponse>();
+        foreach (var category in categories.Where(x => !x.ParentId.HasValue))
         {
-            if (!categories.Any(c => c.Id == category.Id && c.ParentId.HasValue))
-            {
-                roots.Add(category);
-            }
+            response.AddRange(categoryMap.Values.Where(x => x.Id == category.Id));
         }
 
-        return roots;
+        return response;
+        
     }
 }
