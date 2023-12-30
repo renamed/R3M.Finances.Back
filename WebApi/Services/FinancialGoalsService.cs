@@ -45,12 +45,6 @@ public class FinancialGoalsService : IFinancialGoalsService
     {
         await AddOrEditValidationsAsync(financialGoal);
 
-        var existingFinancialGoal = await GetAsync(new FinancialGoal { CategoryId = financialGoal.CategoryId, PeriodId = financialGoal.PeriodId });
-        if (existingFinancialGoal != null)
-        {
-            throw new ValidationException("There already exists a Financial Goal with this category in this period");
-        }
-
         _financesContext.Add(financialGoal);
         await _financesContext.SaveChangesAsync();
 
@@ -62,7 +56,7 @@ public class FinancialGoalsService : IFinancialGoalsService
         var existingFinancialGoal = await GetAsync(id)
             ?? throw new RecordNotFoundException("Financial goal not found");
 
-        await AddOrEditValidationsAsync(financialGoal);
+        await AddOrEditValidationsAsync(existingFinancialGoal);
 
         _mapper.Map(financialGoal, existingFinancialGoal);
         await _financesContext.SaveChangesAsync();

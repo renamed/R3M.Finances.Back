@@ -33,7 +33,7 @@ public class FinancesContext(DbContextOptions<FinancesContext> dbContextOptions)
             e.Property(p => p.PeriodId)
                 .IsRequired();
 
-            e.HasIndex(i => new { i.CategoryId, i.PeriodId }).IsUnique();
+            e.HasIndex(i => new { i.CategoryId, i.PeriodId });
 
             e.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId);
             e.HasOne(o => o.Period).WithMany().HasForeignKey(o => o.PeriodId);
