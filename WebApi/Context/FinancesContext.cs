@@ -11,6 +11,7 @@ public class FinancesContext(DbContextOptions<FinancesContext> dbContextOptions)
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Period> Periods { get; set; }
     public DbSet<FinancialGoal> FinancialGoals { get; set; }
+    public DbSet<TransactionPart> TransactionParts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,8 +19,26 @@ public class FinancesContext(DbContextOptions<FinancesContext> dbContextOptions)
         ConfigTransactions(modelBuilder);
         ConfigPeriods(modelBuilder);
         ConfigFinancialGoals(modelBuilder);
+        ConfigTransactionParts(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    private static void ConfigTransactionParts(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<TransactionPart>(e =>
+        {
+            ConfigId(e);
+
+            e.Property(p => p.CategoryId)
+                .IsRequired(false);
+            e.Property(p => p.Description)
+                .IsRequired(false)
+                .HasMaxLength(250); 
+
+            e.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId);
+            e.HasOne(o => o.Transaction).WithMany().HasForeignKey(o => o.TransactionId);
+        });
     }
 
     private static void ConfigFinancialGoals(ModelBuilder modelBuilder)
@@ -71,7 +90,7 @@ public class FinancesContext(DbContextOptions<FinancesContext> dbContextOptions)
             e.HasIndex(i => i.InvoiceDate).IsDescending();
 
             e.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId).IsRequired();
-            e.HasOne(o => o.Period).WithMany().HasForeignKey(o => o.PeriodId).IsRequired();
+            e.HasOne(o => o.Period).WithMany().HasForeignKey(o => o.PeriodId).IsRequired();            
         });
     }
 

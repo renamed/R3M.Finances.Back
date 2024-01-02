@@ -4,7 +4,6 @@ using System.Net;
 using WebApi;
 using WebApi.Dtos;
 using WebApi.Dtos.Builders;
-using WebApi.Model;
 using Xunit;
 
 namespace IntegrationTests;

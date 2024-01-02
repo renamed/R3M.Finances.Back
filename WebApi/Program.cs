@@ -21,6 +21,7 @@ public class Program
 
 
         builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(Program)));
+        builder.Services.AddMemoryCache();
 
         builder.Services.AddScoped<ICategoriesService, CategoriesService>();
         builder.Services.AddScoped<IPeriodsService, PeriodsService>();
