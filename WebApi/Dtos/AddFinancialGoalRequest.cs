@@ -1,6 +1,4 @@
-﻿using WebApi.Model;
-
-namespace WebApi.Dtos;
+﻿namespace WebApi.Dtos;
 
 public class AddFinancialGoalRequest
 {

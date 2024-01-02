@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Linq.Expressions;
 using WebApi.Context;
 using WebApi.Exceptions;
@@ -31,7 +32,6 @@ public class CategoriesService : ICategoriesService
 
     public Task<Category> GetAsync(Category category)
     {
-
         Expression<Func<Category, bool>> predicate = c => 1 == 1;
 
         predicate = predicate.AndIfNotDefault(x => x.Id == category.Id, category.Id);
@@ -136,5 +136,14 @@ public class CategoriesService : ICategoriesService
 
         _financesContext.Categories.Remove(category);
         await _financesContext.SaveChangesAsync();
+    }
+
+    public Task<List<Category>> GetParentsAsync(Guid childId)
+    {
+        return _financesContext
+                .Categories
+                .Include(c => c.Parent)                
+                .Where(c => c.Id == childId)
+                .ToListAsync();
     }
 }

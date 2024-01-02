@@ -10,4 +10,6 @@ public class Transaction : Register
 
     public Period Period { get; set; }
     public Guid PeriodId { get; set; }
+
+    public IEnumerable<TransactionPart> Parts { get; set; }
 }

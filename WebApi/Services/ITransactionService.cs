@@ -6,6 +6,6 @@ public interface ITransactionService
 {
     Task<Transaction> CreateAsync(Transaction transaction);
     decimal GetBalance();
-    IEnumerable<Transaction> ListByPeriod(Guid id);
-    IEnumerable<Transaction> ListByPeriod(string name);
+    Task<IEnumerable<Transaction>> ListByPeriodAsync(Guid id);
+    Task<IEnumerable<Transaction>> ListByPeriodAsync(string name);
 }
