@@ -10,6 +10,8 @@ public class TransactionsMapper : Profile
     {
         CreateMap<Transaction, ListTransactionsNodeResponse>();
         CreateMap<AddTransactionRequest, Transaction>();
-        CreateMap<Transaction, AddTransactionResponse>();        
+        CreateMap<AddTransactionPartRequest, TransactionPart>();
+        CreateMap<Transaction, AddTransactionResponse>();
+        CreateMap<TransactionPart, AddTransactionPartResponse>();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Net;
 using WebApi.Dtos;
 using WebApi.Model;

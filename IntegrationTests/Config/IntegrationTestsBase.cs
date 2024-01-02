@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;

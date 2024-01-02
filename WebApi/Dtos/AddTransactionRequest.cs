@@ -14,4 +14,13 @@ public class AddTransactionRequest
 
     public Guid CategoryId { get; set; }
     public Guid PeriodId { get; set; }
+
+    public IEnumerable<AddTransactionPartRequest> Parts { get; set; }
+}
+
+public class AddTransactionPartRequest
+{
+    public string Description { get; set; }
+    public decimal Value { get; set; }
+    public Guid? CategoryId { get; set; }
 }

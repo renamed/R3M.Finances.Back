@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
 using WebApi.Context;
 using WebApi.Exceptions;
 using WebApi.Model;
@@ -27,23 +29,28 @@ public class TransactionService : ITransactionService
         return (decimal)_financesContext.Transactions.Sum(x => (double)x.InvoiceValue);
     }
 
-    public IEnumerable<Transaction> ListByPeriod(Guid id)
+    public async Task<IEnumerable<Transaction>> ListByPeriodAsync(Guid id)
     {
-        return List((x) => x.PeriodId == id);
+        return await ListAsync((x) => x.PeriodId == id);
     }
 
-    public IEnumerable<Transaction> ListByPeriod(string name)
+    public async Task<IEnumerable<Transaction>> ListByPeriodAsync(string name)
     {
-        return List((x) => x.Period.Name == name);
+        return await ListAsync((x) => x.Period.Name == name);
     }
 
     public async Task<Transaction> CreateAsync(Transaction transaction)
-    {            
+    {
         var category = await _categoriesService.GetAsync(transaction.CategoryId)
             ?? throw new ValidationException("Category does not exist");
 
         var period = await _periodsService.GetOneAsync(transaction.PeriodId)
             ?? throw new ValidationException("Period does not exist");
+
+        transaction.CategoryId = category.Id;
+        transaction.Category = category;
+        transaction.PeriodId = period.Id;
+        transaction.Period = period;
 
         if (transaction.InvoiceDate < period.Start || transaction.InvoiceDate > period.End)
         {
@@ -60,23 +67,80 @@ public class TransactionService : ITransactionService
             throw new ValidationException("Invoice value cannot be positive with Debit transaction type");
         }
 
-        transaction.Category = category;
-        transaction.CategoryId = category.Id;
-
-        transaction.Period = period;
-        transaction.PeriodId = period.Id;
+        await ValidatePartsAsync(transaction);
+        
 
         _financesContext.Transactions.Add(transaction);
+
+        foreach (var part in transaction.Parts)
+        {
+            part.TransactionId = transaction.Id;
+        }
         await _financesContext.SaveChangesAsync();
 
         return transaction;
     }
 
-    private IEnumerable<Transaction> List(Func<Transaction, bool> predicate)
+
+    private async Task ValidatePartsAsync(Transaction transaction)
     {
-        return _financesContext.Transactions
+        if (transaction.Parts == null) return;
+        if (!transaction.Parts.Any()) return;
+
+        var partsList = transaction.Parts.ToList();
+
+        var sum = partsList.Sum(x => x.Value);
+        if (sum != transaction.InvoiceValue)
+        {
+            throw new ValidationException("Parts sum value do not match transaction value");
+        }
+
+        foreach(var a in partsList)
+        {
+            if (!a.CategoryId.HasValue) return;
+
+            if (a.Value < 0 && transaction.Category.TransactionType == TransactionType.Credit)
+            {
+                throw new ValidationException("Transaction part value cannot be negative with Credit transaction type");
+            }
+
+            if (a.Value > 0 && transaction.Category.TransactionType == TransactionType.Debit)
+            {
+                throw new ValidationException("Transaction part value cannot be positive with Debit transaction type");
+            }
+
+            var category = await _categoriesService.GetAsync(a.CategoryId.Value) 
+                ?? throw new RecordNotFoundException("Category not found for transaction part");
+
+            if (a.Value < 0 && category.TransactionType == TransactionType.Credit)
+            {
+                throw new ValidationException("Transaction part value cannot be negative with Credit transaction type");
+            }
+
+            if (a.Value > 0 && category.TransactionType == TransactionType.Debit)
+            {
+                throw new ValidationException("Transaction part value cannot be positive with Debit transaction type");
+            }
+        }
+    }
+
+    private async Task<List<Transaction>> ListAsync(Func<Transaction, bool> predicate)
+    {
+        var transactions = _financesContext.Transactions
                 .Include(x => x.Period)
                 .Include(x => x.Category)
-                .Where(predicate);
+                .Where(predicate)
+                .ToList();
+
+        foreach (var transaction in transactions)
+        {
+            transaction.Parts = await 
+                _financesContext
+                .TransactionParts
+                .Where(x => x.Id == transaction.Id)
+                .ToListAsync();
+        }
+
+        return transactions;
     }
 }

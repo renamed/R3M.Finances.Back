@@ -1771,8 +1771,15 @@
     "CategoryId": "e858b4b9-f43e-4fbe-b12f-18170e39d140",
     "Period": null,
     "PeriodId": "7f565395-7c03-4519-8ead-1b5685e9716d",
-    "Id": "00000000-0000-0000-0000-000000000000",
+    "Id": "8686bbf8-8e6a-4d7f-86cc-4837df677fda",
     "Inserted": "0001-01-01T00:00:00",
-    "Updated": null
+    "Updated": null,
+    "Parts": [
+      {
+        "Description": "a beautiful description",
+        "Value": -833.47,
+        "TransactionId": "8686bbf8-8e6a-4d7f-86cc-4837df677fda"
+      }
+    ]
   }
 ]
